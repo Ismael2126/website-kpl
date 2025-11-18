@@ -545,3 +545,56 @@ body {
     flex-direction: column;
   }
 }
+/* VESSEL MOVEMENTS TABLE */
+
+.vessel-table-wrapper {
+  margin-top: 1.5rem;
+  overflow-x: auto;
+}
+
+.vessel-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--panel-light);
+}
+
+.vessel-table thead {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.vessel-table th,
+.vessel-table td {
+  padding: 0.65rem 0.75rem;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.vessel-table th {
+  color: #e5e7eb;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+  white-space: nowrap;
+}
+
+.vessel-table tbody tr:nth-child(even) {
+  background: rgba(15, 23, 42, 0.4);
+}
+
+.vessel-table tbody tr:hover {
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.vessel-table td {
+  color: var(--text);
+}
+
+/* Status badge style if we want to color status later */
+.vessel-status {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+}
