@@ -147,7 +147,7 @@ body {
 .hero__video-wrapper {
   position: relative;
   width: 100%;
-  height: 70vh; /* height of hero video area */
+  height: 80vh; /* height of hero video area */
   overflow: hidden;
 }
 
@@ -155,6 +155,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 /* dark overlay on video */

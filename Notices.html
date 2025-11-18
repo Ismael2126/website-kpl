@@ -4,10 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>KPL – Notices</title>
+
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/images/KPL LOGO 2023.ico">
+
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body class="theme-dark">
+  <!-- Dark mode toggle checkbox -->
   <input
     type="checkbox"
     id="theme-toggle"
@@ -48,46 +52,20 @@
     <!-- Notices Section -->
     <section class="section">
       <div class="container">
-
         <h1>Official Notices</h1>
         <p class="section-intro">
           Latest announcements, operational changes, and public notices from Kulhudhuffushi Port Limited.
         </p>
 
-        <!-- Notice List -->
-        <div class="notice-list">
-
-          <!-- NOTICE 1 -->
-          <div class="notice-card">
-            <h3 class="notice-title">📢 Cargo Clearance Timing Update</h3>
-            <p class="notice-date">Published: 2025-01-18</p>
-            <p class="notice-text">
-              New clearance timings will be implemented starting next week. 
-              Customers are advised to follow the updated schedule.
-            </p>
-          </div>
-
-          <!-- NOTICE 2 -->
-          <div class="notice-card">
-            <h3 class="notice-title">🛠 Scheduled Port Maintenance</h3>
-            <p class="notice-date">Published: 2025-01-12</p>
-            <p class="notice-text">
-              Maintenance work will be carried out on berth area C. 
-              Vessel berthing may face slight delays.
-            </p>
-          </div>
-
-          <!-- NOTICE 3 -->
-          <div class="notice-card">
-            <h3 class="notice-title">🚢 Vessel Arrival Delay</h3>
-            <p class="notice-date">Published: 2025-01-05</p>
-            <p class="notice-text">
-              Due to weather conditions, scheduled vessel MV StarLine arrival has been delayed by 12 hours.
-            </p>
-          </div>
-
+        <!-- Dynamic notices from Google Sheets will appear here -->
+        <div id="notice-list" class="notice-list">
+          <!-- JS will add notices -->
         </div>
 
+        <!-- Fallback message if loading fails -->
+        <p id="notice-fallback" class="notice-fallback" style="display:none;">
+          Unable to load notices at the moment. Please try again later.
+        </p>
       </div>
     </section>
 
