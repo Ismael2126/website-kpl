@@ -104,26 +104,36 @@ body {
 
 /* ========== NAVIGATION ========== */
 
+/* ================================
+   NAVBAR (DESKTOP + MOBILE FIXED)
+   ================================ */
+
 .nav {
+  width: 100%;
   background: var(--bg-soft);
   border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+  overflow: hidden;
 }
 
 .nav__list {
   list-style: none;
   display: flex;
-  gap: 0.75rem;
-  padding: 0.5rem 0;
+  flex-wrap: wrap;         /* ✔ mobile fix: wrap instead of overflow */
+  justify-content: center; /* ✔ center items */
+  gap: 0.5rem;             /* balanced spacing */
+  padding: 0.5rem 0.5rem;
   margin: 0;
 }
 
 .nav__link {
   display: inline-block;
-  padding: 0.3rem 0.75rem;
+  padding: 0.45rem 0.9rem;
   border-radius: 999px;
   font-size: 0.9rem;
   color: var(--muted);
   text-decoration: none;
+  white-space: nowrap;     /* ✔ prevents breaking like “Con t act” */
+  transition: 0.2s;
 }
 
 .nav__link:hover {
@@ -132,9 +142,34 @@ body {
 }
 
 .nav__link--active {
-  color: #0f172a;
-  background: #e5e7eb;
+  color: var(--bg-soft);
+  background: var(--accent);
 }
+
+/* ================================
+   MOBILE RESPONSIVE TWEAKS
+   ================================ */
+@media (max-width: 480px) {
+
+  /* Slightly smaller links */
+  .nav__link {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.82rem;
+  }
+
+  /* Prevent nav pushing sideways */
+  .nav {
+    padding: 0 0.2rem;
+  }
+
+  /* Ensure items never overflow */
+  .nav__list {
+    row-gap: 4px;
+    column-gap: 4px;
+    justify-content: center;
+  }
+}
+
 
 /* ========== HERO VIDEO ========== */
 
