@@ -633,3 +633,123 @@ body {
   font-size: 0.8rem;
   border: 1px solid rgba(148, 163, 184, 0.5);
 }
+/* ========== VESSEL MOVEMENTS BOX (RESTORED) ========== */
+
+.vm-box {
+  background: var(--panel-light);
+  margin: 1.5rem 0;
+  padding: 1.3rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148,163,184,0.25);
+  transition: 0.25s ease;
+}
+
+.vm-box:hover {
+  background: var(--panel);
+  transform: translateY(-2px);
+}
+
+.vm-title {
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(148,163,184,0.25);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Table styling inside vm-box */
+.vm-box table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.vm-box th,
+.vm-box td {
+  padding: 0.6rem 0.55rem;
+  border-bottom: 1px solid rgba(148,163,184,0.25);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.vm-box th {
+  font-weight: 600;
+  background: rgba(15, 23, 42, 0.4);
+  color: #e5e7eb;
+}
+
+.vm-box tbody tr:nth-child(even) {
+  background: rgba(15, 23, 42, 0.25);
+}
+
+.vm-box tbody tr:hover {
+  background: rgba(56,189,248,0.10);
+}
+
+/* Mobile responsive table */
+@media (max-width: 600px) {
+  .vm-box table,
+  .vm-box tbody,
+  .vm-box tr,
+  .vm-box th,
+  .vm-box td {
+      display: block;
+  }
+
+  .vm-box th {
+      display: none;
+  }
+
+  .vm-box td {
+      border: none;
+      padding: 6px 0;
+  }
+
+  .vm-box td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      color: var(--muted);
+      display: block;
+  }
+}
+
+/* ========== VESSEL PAGE HEADER ========== */
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.section-header p {
+  margin-top: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+/* Center the whole vessel movement section */
+.vm-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* <-- this forces center horizontally */
+  width: 100%;
+}
+
+/* vm-box style */
+.vm-box {
+  width: 100%;
+  max-width: 850px;      /* smaller width, adjust if needed */
+  background: var(--panel-light);
+  margin: 1.5rem auto;   /* center on all screens */
+  padding: 1.3rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148,163,184,0.25);
+  transition: 0.25s ease;
+}
+
+.vm-box:hover {
+  background: var(--panel);
+  transform: translateY(-2px);
+}

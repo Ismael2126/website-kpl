@@ -13,7 +13,6 @@ function initTheme() {
   const toggle = document.getElementById("theme-toggle");
   const body = document.body;
 
-  // Load saved theme
   const saved = localStorage.getItem("kpl-theme");
   if (saved === "light") {
     body.classList.remove("theme-dark");
@@ -45,9 +44,8 @@ function initTheme() {
    =============================== */
 function initHeroMedia() {
   const heroBox = document.getElementById("hero-media");
-  if (!heroBox) return; // only on home page
+  if (!heroBox) return;
 
-  // 🔧 Change this when you upload a new image/video
   const heroFile = "assets/media/Mood.mp4";
 
   if (heroFile.endsWith(".mp4") || heroFile.endsWith(".webm")) {
@@ -66,7 +64,7 @@ function initHeroMedia() {
    =============================== */
 function initNotices() {
   const noticeContainer = document.getElementById("notice-list");
-  if (!noticeContainer) return; // only on notices page
+  if (!noticeContainer) return;
 
   loadNoticesFromSheet();
 }
@@ -77,7 +75,7 @@ function loadNoticesFromSheet() {
   if (!noticeContainer) return;
 
   const SHEET_ID = "105qEW2kBnUb3rNWNmffHWAtnlpDOiavo8zFsXPbPrxk";
-  const SHEET_NAME = "Notices"; // make sure this matches your tab name
+  const SHEET_NAME = "Notices";
 
   const url =
     `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?` +
@@ -121,104 +119,95 @@ function loadNoticesFromSheet() {
 }
 
 /* ===============================
-   4) Vessel Movements from KPL API
+   4) Vessel Movements (5-box layout)
    =============================== */
 function initVesselMovements() {
-  const tbody = document.getElementById("vessel-tbody");
-  if (!tbody) return; // only on vessel-movements page
+  const check = document.getElementById("estimatedArrivals");
+  if (!check) return; // only run on vessel page
 
   loadVesselMovements();
 }
 
-function loadVesselMovements() {
-  const tbody = document.getElementById("vessel-tbody");
-  const fallback = document.getElementById("vessel-fallback");
-  if (!tbody) return;
+function createVMTable(data, columns) {
+  if (!data || data.length === 0) return "<p>No data available.</p>";
 
-  const apiUrl = "https://my.kulhudhuffushiport.mv/api/vessel_noticeboard";
+  let html = "<table><thead><tr>";
+  columns.forEach(col => {
+    html += `<th>${col.label}</th>`;
+  });
+  html += "</tr></thead><tbody>";
 
-  fetch(apiUrl)
-    .then(res => {
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return res.json();
-    })
-    .then(data => {
-      console.log("Vessel API data:", data); // For debugging in browser console
-
-      // Try to support both: {data: [...]} or just [...]
-      const list = Array.isArray(data)
-        ? data
-        : Array.isArray(data.data)
-        ? data.data
-        : [];
-
-      if (!list.length) {
-        if (fallback) fallback.style.display = "block";
-        return;
-      }
-
-      tbody.innerHTML = "";
-
-      list.forEach(item => {
-        // Try common field names safely
-        const name =
-          item.vessel_name || item.vessel || item.name || "Unknown Vessel";
-
-        const from =
-          item.from_port || item.origin || item.from || item.arrived_from || "-";
-
-        const to =
-          item.to_port || item.destination || item.to || item.departing_to || "-";
-
-        const etaRaw =
-          item.eta || item.arrival || item.arrival_time || item.arrival_date;
-        const etdRaw =
-          item.etd || item.departure || item.departure_time || item.departure_date;
-
-        const status = item.status || item.remarks || "-";
-
-        const etaText = formatNiceDate(etaRaw);
-        const etdText = formatNiceDate(etdRaw);
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${name}</td>
-          <td>${from}</td>
-          <td>${to}</td>
-          <td>
-            ${etaText ? `ETA: ${etaText}<br>` : ""}
-            ${etdText ? `ETD: ${etdText}` : ""}
-          </td>
-          <td><span class="vessel-status">${status}</span></td>
-        `;
-
-        tbody.appendChild(tr);
-      });
-    })
-    .catch(err => {
-      console.error("Error loading vessel movements:", err);
-      if (fallback) fallback.style.display = "block";
+  data.forEach(row => {
+    html += "<tr>";
+    columns.forEach(col => {
+      html += `<td data-label="${col.label}">${row[col.key] ?? "-"}</td>`;
     });
+    html += "</tr>";
+  });
+
+  html += "</tbody></table>";
+  return html;
 }
 
-/* ===============================
-   Helper: format date as "18 Nov 2025"
-   =============================== */
-function formatNiceDate(value) {
-  if (!value) return "";
+function loadVesselMovements() {
+  const apiUrl =
+  "https://api.allorigins.win/raw?url=https://my.kulhudhuffushiport.mv/api/vessel_noticeboard";
 
-  const d = new Date(value);
-  if (isNaN(d.getTime())) {
-    // If it's not a parseable date, just return original text
-    return value;
-  }
 
-  const day = d.getDate().toString().padStart(2, "0");
-  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const month = monthNames[d.getMonth()];
-  const year = d.getFullYear();
+  fetch(apiUrl)
+    .then(res => res.json())
+    .then(json => {
 
-  return `${day} ${month} ${year}`;
+      document.querySelector("#estimatedArrivals").innerHTML =
+  createVMTable(json.estimated_arrivals, [
+    { label: "Vessel", key: "vessel_name" },
+    { label: "GT", key: "gt" },
+    { label: "LAO", key: "lao" },
+    { label: "Date", key: "eta" },
+    { label: "Berth From", key: "last_port" },
+    { label: "Berth To", key: "arrival_port" }
+  ]);
+
+document.querySelector("#arrivals").innerHTML =
+  createVMTable(json.arrivals, [
+    { label: "Vessel", key: "vessel_name" },
+    { label: "GT", key: "gt" },
+    { label: "LAO", key: "lao" },
+    { label: "Date", key: "date" },
+    { label: "Berth From", key: "berth_from" },
+    { label: "Berth To", key: "berth_to" }
+  ]);
+
+document.querySelector("#departures").innerHTML =
+  createVMTable(json.departures, [
+    { label: "Vessel", key: "vessel_name" },
+    { label: "GT", key: "gt" },
+    { label: "LAO", key: "lao" },
+    { label: "Date", key: "date" },
+    { label: "Berth From", key: "berth_from" },
+    { label: "Berth To", key: "berth_to" }
+  ]);
+
+document.querySelector("#shifting").innerHTML =
+  createVMTable(json.shifting, [
+    { label: "Vessel", key: "vessel_name" },
+    { label: "GT", key: "gt" },
+    { label: "LAO", key: "lao" },
+    { label: "Date", key: "date" },
+    { label: "Berth From", key: "berth_from" },
+    { label: "Berth To", key: "berth_to" }
+  ]);
+
+document.querySelector("#vesselsAtPort").innerHTML =
+  createVMTable(json.vessels_at_port, [
+    { label: "Vessel", key: "vessel_name" },
+    { label: "GT", key: "gt" },
+    { label: "LAO", key: "lao" },
+    { label: "Date", key: "arrival_time" },
+    { label: "Berth From", key: "last_port" },
+    { label: "Berth To", key: "berth_at" }
+  ]);
+
+    })
+    .catch(err => console.error("Error loading vessel data:", err));
 }
