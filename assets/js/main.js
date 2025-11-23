@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ===============================
-   1) Dark / Light Theme
+   1) Theme
    =============================== */
 function initTheme() {
   const toggle = document.getElementById("theme-toggle");
@@ -15,199 +15,183 @@ function initTheme() {
 
   const saved = localStorage.getItem("kpl-theme");
   if (saved === "light") {
-    body.classList.remove("theme-dark");
-    body.classList.add("theme-light");
-    if (toggle) toggle.checked = false;
+    body.classList.replace("theme-dark", "theme-light");
+    toggle.checked = false;
   } else {
-    body.classList.remove("theme-light");
-    body.classList.add("theme-dark");
-    if (toggle) toggle.checked = true;
+    body.classList.replace("theme-light", "theme-dark");
+    toggle.checked = true;
   }
 
-  if (toggle) {
-    toggle.addEventListener("change", () => {
-      if (toggle.checked) {
-        body.classList.remove("theme-light");
-        body.classList.add("theme-dark");
-        localStorage.setItem("kpl-theme", "dark");
-      } else {
-        body.classList.remove("theme-dark");
-        body.classList.add("theme-light");
-        localStorage.setItem("kpl-theme", "light");
-      }
-    });
-  }
+  toggle.addEventListener("change", () => {
+    if (toggle.checked) {
+      body.classList.replace("theme-light", "theme-dark");
+      localStorage.setItem("kpl-theme", "dark");
+    } else {
+      body.classList.replace("theme-dark", "theme-light");
+      localStorage.setItem("kpl-theme", "light");
+    }
+  });
 }
 
 /* ===============================
-   2) AUTO-DETECT HERO IMAGE / VIDEO
+   2) Hero
    =============================== */
 function initHeroMedia() {
   const heroBox = document.getElementById("hero-media");
   if (!heroBox) return;
-
-  const heroFile = "assets/media/Mood.mp4";
-
-  if (heroFile.endsWith(".mp4") || heroFile.endsWith(".webm")) {
-    heroBox.innerHTML = `
-      <video class="hero__video" src="${heroFile}" autoplay muted loop playsinline></video>
-    `;
-  } else {
-    heroBox.innerHTML = `
-      <img class="hero__video" src="${heroFile}" alt="Hero Image">
-    `;
-  }
+  heroBox.innerHTML = `
+      <video class="hero__video" src="assets/media/Mood.mp4"
+      autoplay muted loop playsinline></video>
+  `;
 }
 
 /* ===============================
-   3) Notices from Google Sheet
+   3) Notices
    =============================== */
 function initNotices() {
-  const noticeContainer = document.getElementById("notice-list");
-  if (!noticeContainer) return;
-
+  const c = document.getElementById("notice-list");
+  if (!c) return;
   loadNoticesFromSheet();
 }
 
 function loadNoticesFromSheet() {
-  const noticeContainer = document.getElementById("notice-list");
-  const fallback = document.getElementById("notice-fallback");
-  if (!noticeContainer) return;
-
   const SHEET_ID = "105qEW2kBnUb3rNWNmffHWAtnlpDOiavo8zFsXPbPrxk";
   const SHEET_NAME = "Notices";
 
   const url =
-    `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?` +
-    `tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+    `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
 
   fetch(url)
-    .then(res => res.text())
+    .then(r => r.text())
     .then(text => {
       const json = JSON.parse(text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1));
-      const rows = json.table.rows || [];
-      if (!rows.length) {
-        if (fallback) fallback.style.display = "block";
-        return;
-      }
+      const rows = json.table.rows;
 
-      noticeContainer.innerHTML = "";
+      const box = document.getElementById("notice-list");
+      box.innerHTML = "";
 
       rows.forEach(row => {
         const date = row.c[0]?.v || "";
         const title = row.c[1]?.v || "";
         const message = row.c[2]?.v || "";
 
-        if (!title && !message) return;
-
-        const card = document.createElement("div");
-        card.className = "notice-card";
-
-        card.innerHTML = `
-          <h3 class="notice-title">📢 ${title}</h3>
-          ${date ? `<p class="notice-date">Published: ${date}</p>` : ""}
-          <p class="notice-text">${message}</p>
+        box.innerHTML += `
+          <div class="notice-card">
+            <h3 class="notice-title">📢 ${title}</h3>
+            ${date ? `<p class="notice-date">${date}</p>` : ""}
+            <p>${message}</p>
+          </div>
         `;
-
-        noticeContainer.appendChild(card);
       });
     })
-    .catch(err => {
-      console.error("Error loading notices:", err);
-      if (fallback) fallback.style.display = "block";
-    });
+    .catch(err => console.error("Notices error:", err));
 }
 
 /* ===============================
-   4) Vessel Movements (5-box layout)
+   4) Vessel Movements
    =============================== */
 function initVesselMovements() {
-  const check = document.getElementById("estimatedArrivals");
-  if (!check) return; // only run on vessel page
-
+  if (!document.getElementById("estimatedArrivals")) return;
   loadVesselMovements();
 }
 
 function createVMTable(data, columns) {
-  if (!data || data.length === 0) return "<p>No data available.</p>";
+  if (!data || data.length === 0) return `<p>No data available.</p>`;
 
-  let html = "<table><thead><tr>";
-  columns.forEach(col => {
-    html += `<th>${col.label}</th>`;
-  });
-  html += "</tr></thead><tbody>";
+  let html = `<table><thead><tr>`;
+  columns.forEach(c => html += `<th>${c.label}</th>`);
+  html += `</tr></thead><tbody>`;
 
-  data.forEach(row => {
-    html += "<tr>";
-    columns.forEach(col => {
-      html += `<td data-label="${col.label}">${row[col.key] ?? "-"}</td>`;
+  data.forEach(item => {
+    html += `<tr>`;
+    columns.forEach(c => {
+      let value = item[c.key];
+
+      // nested objects (arrival, departure, berth etc)
+      if (c.key.includes(".")) {
+        const keys = c.key.split(".");
+        value = item;
+        keys.forEach(k => value = value ? value[k] : "-");
+      }
+
+      html += `<td>${value ?? "-"}</td>`;
     });
-    html += "</tr>";
+    html += `</tr>`;
   });
 
-  html += "</tbody></table>";
+  html += `</tbody></table>`;
   return html;
 }
 
 function loadVesselMovements() {
-  const apiUrl =
-  "https://api.allorigins.win/raw?url=https://my.kulhudhuffushiport.mv/api/vessel_noticeboard";
+  const apiURL =
+    "https://api.allorigins.win/raw?url=https://my.kulhudhuffushiport.mv/api/vessel_noticeboard";
 
+  console.log("Fetching vessel API...");
 
-  fetch(apiUrl)
+  fetch(apiURL)
     .then(res => res.json())
     .then(json => {
+      console.log("✔ API Response:", json);
 
       document.querySelector("#estimatedArrivals").innerHTML =
-  createVMTable(json.estimated_arrivals, [
-    { label: "Vessel", key: "vessel_name" },
-    { label: "GT", key: "gt" },
-    { label: "LAO", key: "lao" },
-    { label: "Date", key: "eta" },
-    { label: "Berth From", key: "last_port" },
-    { label: "Berth To", key: "arrival_port" }
-  ]);
+        "🟡 Estimated Arrivals" +
+        createVMTable(json.eta, [
+          { label: "Vessel", key: "vessel_name" },
+          { label: "GT", key: "gross_register_tonnage" },
+          { label: "LAO", key: "loa" },
+          { label: "ETA", key: "eta" },
+          { label: "Last Port", key: "sourceport_name" },
+          { label: "Arrival Port", key: "destinationport_name" }
+        ]);
 
-document.querySelector("#arrivals").innerHTML =
-  createVMTable(json.arrivals, [
-    { label: "Vessel", key: "vessel_name" },
-    { label: "GT", key: "gt" },
-    { label: "LAO", key: "lao" },
-    { label: "Date", key: "date" },
-    { label: "Berth From", key: "berth_from" },
-    { label: "Berth To", key: "berth_to" }
-  ]);
+      document.querySelector("#arrivals").innerHTML =
+        "🟢 Arrivals" +
+        createVMTable(json.arrival, [
+          { label: "Vessel", key: "voyage.vessel_name" },
+          { label: "GT", key: "voyage.gross_register_tonnage" },
+          { label: "LAO", key: "voyage.loa" },
+          { label: "Date", key: "start_time" },
+          { label: "From", key: "fromberth.name" },
+          { label: "To", key: "toberth.name" }
+        ]);
 
-document.querySelector("#departures").innerHTML =
-  createVMTable(json.departures, [
-    { label: "Vessel", key: "vessel_name" },
-    { label: "GT", key: "gt" },
-    { label: "LAO", key: "lao" },
-    { label: "Date", key: "date" },
-    { label: "Berth From", key: "berth_from" },
-    { label: "Berth To", key: "berth_to" }
-  ]);
+      document.querySelector("#departures").innerHTML =
+        "🔵 Departures" +
+        createVMTable(json.departure, [
+          { label: "Vessel", key: "voyage.vessel_name" },
+          { label: "GT", key: "voyage.gross_register_tonnage" },
+          { label: "LAO", key: "voyage.loa" },
+          { label: "Date", key: "start_time" },
+          { label: "From", key: "fromberth.name" },
+          { label: "To", key: "toberth.name" }
+        ]);
 
-document.querySelector("#shifting").innerHTML =
-  createVMTable(json.shifting, [
-    { label: "Vessel", key: "vessel_name" },
-    { label: "GT", key: "gt" },
-    { label: "LAO", key: "lao" },
-    { label: "Date", key: "date" },
-    { label: "Berth From", key: "berth_from" },
-    { label: "Berth To", key: "berth_to" }
-  ]);
+      document.querySelector("#shifting").innerHTML =
+        "🟣 Shifting" +
+        createVMTable(json.shifting, [
+          { label: "Vessel", key: "voyage.vessel_name" },
+          { label: "GT", key: "voyage.gross_register_tonnage" },
+          { label: "LAO", key: "voyage.loa" },
+          { label: "Date", key: "start_time" },
+          { label: "Berth From", key: "fromberth.name" },
+          { label: "Berth To", key: "toberth.name" }
+        ]);
 
-document.querySelector("#vesselsAtPort").innerHTML =
-  createVMTable(json.vessels_at_port, [
-    { label: "Vessel", key: "vessel_name" },
-    { label: "GT", key: "gt" },
-    { label: "LAO", key: "lao" },
-    { label: "Date", key: "arrival_time" },
-    { label: "Berth From", key: "last_port" },
-    { label: "Berth To", key: "berth_at" }
-  ]);
+      document.querySelector("#vesselsAtPort").innerHTML =
+        "⚓ Vessels At Port" +
+        createVMTable(json.atport, [
+          { label: "Vessel", key: "vessel_name" },
+          { label: "GT", key: "gross_register_tonnage" },
+          { label: "LAO", key: "loa" },
+          { label: "Arrival", key: "arrival_at" },
+          { label: "Last Port", key: "sourceport_name" },
+          { label: "Berth", key: "pilotage.servicetoberth.name" }
+        ]);
 
     })
-    .catch(err => console.error("Error loading vessel data:", err));
+    .catch(err => {
+      console.error("❌ Vessel API Error:", err);
+      alert("API unreachable. Please check connection or try again.");
+    });
 }
