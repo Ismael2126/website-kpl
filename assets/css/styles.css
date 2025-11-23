@@ -687,31 +687,27 @@ body {
 }
 
 /* Mobile responsive table */
+/* MOBILE: Keep real table, just make it scroll horizontally */
 @media (max-width: 600px) {
-  .vm-box table,
-  .vm-box tbody,
-  .vm-box tr,
+
+  .vm-box {
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .vm-box table {
+    width: 100%;
+    min-width: 650px; /* force true table look */
+    border-collapse: collapse;
+  }
+
   .vm-box th,
   .vm-box td {
-      display: block;
+    white-space: nowrap; /* prevent breaking into multiple lines */
   }
 
-  .vm-box th {
-      display: none;
-  }
-
-  .vm-box td {
-      border: none;
-      padding: 6px 0;
-  }
-
-  .vm-box td::before {
-      content: attr(data-label);
-      font-weight: 600;
-      color: var(--muted);
-      display: block;
-  }
 }
+
 
 /* ========== VESSEL PAGE HEADER ========== */
 
@@ -753,3 +749,184 @@ body {
   background: var(--panel);
   transform: translateY(-2px);
 }
+/* 3 Column Gallery */
+.three-gallery {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.gallery-col {
+    flex: 1;
+}
+
+.gallery-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+    height: 100%;
+}
+
+.carousel-track img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 4px;
+    z-index: 10;
+}
+
+.carousel-btn.left {
+    left: 10px;
+}
+
+.carousel-btn.right {
+    right: 10px;
+}
+* 3-column layout */
+/* ========== THREE GALLERY LAYOUT ========== */
+.three-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+/* Each column */
+.gallery-col {
+    background: var(--panel-light);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(148,163,184,0.25);
+}
+
+/* Title */
+.gallery-title {
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Carousel Wrapper */
+.carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+/* Image slider row */
+.carousel-track {
+    display: flex;
+    transition: transform 0.45s ease;
+}
+
+/* Images */
+.carousel-track img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 10px;        /* spacing between images */
+}
+
+.carousel-track img:last-child {
+    margin-right: 0;
+}
+
+/* Buttons */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(20, 30, 50, 0.8);
+    border: none;
+    padding: 8px 12px;
+    color: white;
+    font-size: 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.carousel-btn.left { left: 8px; }
+.carousel-btn.right { right: 8px; }
+
+.carousel-btn:hover {
+    background: rgba(46, 138, 255, 0.9);
+}
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+    .three-gallery {
+        grid-template-columns: 1fr;
+    }
+    .carousel-track img {
+        height: 180px;
+    }
+}
+/* SIMPLE LIGHTBOX POPUP */
+.img-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.img-popup img {
+    max-width: 95%;
+    max-height: 95%;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+.img-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.img-popup img {
+    max-width: 95%;
+    max-height: 95%;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+

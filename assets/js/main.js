@@ -195,3 +195,49 @@ function loadVesselMovements() {
       alert("API unreachable. Please check connection or try again.");
     });
 }
+/* ===============================
+   IMAGE CAROUSEL (3 Independent Sliders)
+   =============================== */
+
+function moveSlide(id, direction) {
+    const el = document.getElementById(id);
+    const track = el.querySelector(".carousel-track");
+    const images = track.querySelectorAll("img");
+    const total = images.length;
+
+    let index = Number(el.getAttribute("data-index")) || 0;
+    index += direction;
+
+    if (index < 0) index = total - 1;
+    if (index >= total) index = 0;
+
+    el.setAttribute("data-index", index);
+
+    // Get width of ONE image
+    const imgWidth = images[0].clientWidth;
+
+    // Move based on pixel value (correct way)
+    track.style.transform = `translateX(-${index * imgWidth}px)`;
+}
+
+/* Independent auto-scroll */
+setInterval(() => moveSlide("sportsCarousel", 1), 8000);
+setInterval(() => moveSlide("portCarousel", 1), 10000);
+setInterval(() => moveSlide("announceCarousel", 1), 10000);
+
+/* POPUP IMAGE VIEWER */
+function openPopup(src) {
+    document.getElementById("popupImg").src = src;
+    document.getElementById("imgPopup").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("imgPopup").style.display = "none";
+}
+
+document.addEventListener("click", function(e) {
+    if (e.target.tagName === "IMG" && e.target.closest(".carousel-track")) {
+        openPopup(e.target.src);
+    }
+});
+

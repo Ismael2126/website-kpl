@@ -68,6 +68,57 @@
 
   </div>
 </section>
+  
+<section class="three-gallery">
+
+    <!-- SPORTS -->
+    <div class="gallery-col">
+        <h2 class="gallery-title">Sports</h2>
+        <div class="carousel" id="sportsCarousel">
+            <div class="carousel-track">
+                <img src="assets/media/gallery/sports1.jpg">
+                <img src="assets/media/gallery/sports2.jpg">
+                <img src="assets/media/gallery/sports (4).jpg">
+                <img src="assets/media/gallery/sports (5).jpg">
+                <img src="assets/media/gallery/sports (6).jpg">
+                <img src="assets/media/gallery/sports (7).jpg">
+            </div>
+            <button class="carousel-btn left" onclick="moveSlide('sportsCarousel', -4)">❮</button>
+            <button class="carousel-btn right" onclick="moveSlide('sportsCarousel', 1)">❯</button>
+        </div>
+    </div>
+
+    <!-- PORT RELATED -->
+    <div class="gallery-col">
+        <h2 class="gallery-title">Port Related</h2>
+        <div class="carousel" id="portCarousel">
+            <div class="carousel-track">
+                <img src="assets/media/gallery/port1.jpg" alt="">
+                <img src="assets/media/gallery/port2.jpg" alt="">
+                <img src="assets/media/gallery/port3.jpg" alt="">
+            </div>
+            <button class="carousel-btn left" onclick="moveSlide('portCarousel', -1)">❮</button>
+            <button class="carousel-btn right" onclick="moveSlide('portCarousel', 1)">❯</button>
+        </div>
+    </div>
+
+    <!-- ANNOUNCEMENTS -->
+    <div class="gallery-col">
+        <h2 class="gallery-title">Announcements</h2>
+        <div class="carousel" id="announceCarousel">
+            <div class="carousel-track">
+                <img src="assets/media/gallery/announce1.jpg">
+                <img src="assets/media/gallery/announce2.jpg">
+                <img src="assets/media/gallery/announce3.jpg">
+            </div>
+            <button class="carousel-btn left" onclick="moveSlide('announceCarousel', -1)">❮</button>
+            <button class="carousel-btn right" onclick="moveSlide('announceCarousel', 1)">❯</button>
+        </div>
+    </div>
+
+</section>
+
+
 
 
     <!-- Online Services -->
@@ -119,5 +170,9 @@
   </div>
 
   <script src="assets/js/main.js"></script>
+  <!-- IMAGE POPUP (Lightbox) -->
+<div id="imgPopup" class="img-popup" onclick="closePopup()">
+    <img id="popupImg">
+</div>
 </body>
 </html>
