@@ -1,178 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kulhudhuffushi Port Limited (KPL) – Home</title>
-  <link rel="icon" type="image/png" href="assets/images/KPL Logo .ico">
-  <link rel="stylesheet" href="assets/css/styles.css" />
-</head>
-<body class="theme-dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Kulhudhuffushi Port Limited (KPL) – Home</title>
+    <link rel="icon" type="image/png" href="assets/images/KPL Logo .ico" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body class="theme-dark">
+    <!-- Dark mode toggle control -->
+    <input
+      type="checkbox"
+      id="theme-toggle"
+      class="theme-toggle-input"
+      aria-label="Toggle dark mode"
+    />
 
-  <!-- Dark mode toggle control -->
-  <input
-    type="checkbox"
-    id="theme-toggle"
-    class="theme-toggle-input"
-    aria-label="Toggle dark mode"
-  >
-
-  <div class="site">
-
-    <!-- Topbar -->
-    <header class="topbar">
-      <div class="container topbar__inner">
-        <a href="index.html" class="brand">
-          <img src="assets/images/KPL_LOGO_2023.jpg" alt="KPL Logo" class="brand__logo">
-          <span class="brand__text">Kulhudhuffushi Port Limited</span>
-        </a>
-
-        <label for="theme-toggle" class="theme-toggle">
-          <span class="theme-toggle__icon">🌙</span>
-          <span class="theme-toggle__text">Dark</span>
-        </label>
-      </div>
-    </header>
-
-    <!-- Navigation -->
-    <nav class="nav">
-      <div class="container">
-        <ul class="nav__list">
-          <li><a href="index.html" class="nav__link nav__link--active">Home</a></li>
-          <li><a href="about.html" class="nav__link">About</a></li>
-          <li><a href="services.html" class="nav__link">Services</a></li>
-          <li><a href="notices.html" class="nav__link">Notices</a></li>
-          <li><a href="vessel.html" class="nav__link">Vessel Movements</a></li>
-          <li><a href="contact.html" class="nav__link">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- HERO VIDEO like MPL -->
-    <section class="hero">
-  <div class="hero__video-wrapper">
-
-    <!-- AUTO MEDIA BOX (JS will place image or video here) -->
-    <div id="hero-media"></div>
-
-    <div class="hero__overlay"></div>
-
-    <div class="hero__content">
-      <div class="container">
-        <h1>Welcome To Kulhudhuffushi Port Limited</h1>
-        <p class="hero__subtitle">
-          Your world-class port in the Indian Ocean, bridging the East and West.
-        </p>
-      </div>
-    </div>
-
-  </div>
-</section>
-  
-<section class="three-gallery">
-
-    <!-- SPORTS -->
-    <div class="gallery-col">
-        <h2 class="gallery-title">Sports</h2>
-        <div class="carousel" id="sportsCarousel">
-            <div class="carousel-track">
-                <img src="assets/media/gallery/sports1.jpg">
-                <img src="assets/media/gallery/sports2.jpg">
-                <img src="assets/media/gallery/sports (4).jpg">
-                <img src="assets/media/gallery/sports (5).jpg">
-                <img src="assets/media/gallery/sports (6).jpg">
-                <img src="assets/media/gallery/sports (7).jpg">
-            </div>
-            <button class="carousel-btn left" onclick="moveSlide('sportsCarousel', -4)">❮</button>
-            <button class="carousel-btn right" onclick="moveSlide('sportsCarousel', 1)">❯</button>
-        </div>
-    </div>
-
-    <!-- PORT RELATED -->
-    <div class="gallery-col">
-        <h2 class="gallery-title">Port Related</h2>
-        <div class="carousel" id="portCarousel">
-            <div class="carousel-track">
-                <img src="assets/media/gallery/port1.jpg" alt="">
-                <img src="assets/media/gallery/port2.jpg" alt="">
-                <img src="assets/media/gallery/port3.jpg" alt="">
-            </div>
-            <button class="carousel-btn left" onclick="moveSlide('portCarousel', -1)">❮</button>
-            <button class="carousel-btn right" onclick="moveSlide('portCarousel', 1)">❯</button>
-        </div>
-    </div>
-
-    <!-- ANNOUNCEMENTS -->
-    <div class="gallery-col">
-        <h2 class="gallery-title">Announcements</h2>
-        <div class="carousel" id="announceCarousel">
-            <div class="carousel-track">
-                <img src="assets/media/gallery/announce1.jpg">
-                <img src="assets/media/gallery/announce2.jpg">
-                <img src="assets/media/gallery/announce3.jpg">
-            </div>
-            <button class="carousel-btn left" onclick="moveSlide('announceCarousel', -1)">❮</button>
-            <button class="carousel-btn right" onclick="moveSlide('announceCarousel', 1)">❯</button>
-        </div>
-    </div>
-
-</section>
-
-
-
-
-    <!-- Online Services -->
-    <section class="section section--panel">
-      <div class="container">
-        <h2 class="section__title">Online Services</h2>
-        <div class="cards">
-
-          <a href="https://my.kulhudhuffushiport.mv/" class="card">
-            <span class="card__icon">🌐</span>
-            <span class="card__title">Customer Portal</span>
+    <div class="site">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="container topbar__inner">
+          <a href="index.html" class="brand">
+            <img
+              src="assets/images/KPL_LOGO_2023.jpg"
+              alt="KPL Logo"
+              class="brand__logo"
+            />
+            <span class="brand__text">Kulhudhuffushi Port Limited</span>
           </a>
 
-          <a href="notices.html" class="card">
-            <span class="card__icon">📋</span>
-            <span class="card__title">Port Notices</span>
-          </a>
-
-          <a href="contact.html" class="card">
-            <span class="card__icon">☎️</span>
-            <span class="card__title">Contact KPL</span>
-          </a>
-
+          <label for="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle__icon">🌙</span>
+            <span class="theme-toggle__text">Dark</span>
+          </label>
         </div>
-      </div>
-    </section>
+      </header>
 
-    
+      <!-- Navigation -->
+      <nav class="nav">
+        <div class="container">
+          <ul class="nav__list">
+            <li>
+              <a href="index.html" class="nav__link nav__link--active">Home</a>
+            </li>
+            <li><a href="about.html" class="nav__link">About</a></li>
+            <li><a href="services.html" class="nav__link">Services</a></li>
+            <li><a href="notices.html" class="nav__link">Notices</a></li>
+            <li>
+              <a href="vessel.html" class="nav__link">Vessel Movements</a>
+            </li>
+            <li><a href="contact.html" class="nav__link">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
 
-    <!-- About teaser -->
-    <section class="section">
-      <div class="container">
-        <h2>About KPL</h2>
-        <p>
-          KPL is committed to providing safe, efficient, and reliable port services
-          through innovation, sustainable best practices, and strong stakeholder
-          engagement for the people of Maldives.
-        </p>
-      </div>
-    </section>
+      <!-- HERO VIDEO like MPL -->
+      <section class="hero">
+        <div class="hero__video-wrapper">
+          <!-- AUTO MEDIA BOX (JS will place image or video here) -->
+          <div id="hero-media"></div>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container footer__inner">
-        <p>© 2025 Kulhudhuffushi Port Limited. All rights reserved.</p>
-      </div>
-    </footer>
+          <div class="hero__overlay"></div>
 
-  </div>
+          <div class="hero__content">
+            <div class="container">
+              <h1>Welcome To Kulhudhuffushi Port Limited</h1>
+              <p class="hero__subtitle">
+                Your world-class port in the Indian Ocean, bridging the East and
+                West.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <script src="assets/js/main.js"></script>
-  <!-- IMAGE POPUP (Lightbox) -->
-<div id="imgPopup" class="img-popup" onclick="closePopup()">
-    <img id="popupImg">
-</div>
-</body>
+      <section class="three-gallery">
+        <!-- SPORTS -->
+        <div class="gallery-col">
+          <h2 class="gallery-title">Sports</h2>
+          <div class="carousel" id="sportsCarousel">
+            <div class="carousel-track">
+              <img src="assets/media/gallery/sports1.jpg" />
+              <img src="assets/media/gallery/sports2.jpg" />
+              <img src="assets/media/gallery/sports (4).jpg" />
+              <img src="assets/media/gallery/sports (5).jpg" />
+              <img src="assets/media/gallery/sports (6).jpg" />
+              <img src="assets/media/gallery/sports (7).jpg" />
+            </div>
+            <button
+              class="carousel-btn left"
+              onclick="moveSlide('sportsCarousel', -4)"
+            >
+              ❮
+            </button>
+            <button
+              class="carousel-btn right"
+              onclick="moveSlide('sportsCarousel', 1)"
+            >
+              ❯
+            </button>
+          </div>
+        </div>
+
+        <!-- PORT RELATED -->
+        <div class="gallery-col">
+          <h2 class="gallery-title">Port Related</h2>
+          <div class="carousel" id="portCarousel">
+            <div class="carousel-track">
+              <img src="assets/media/gallery/port1.jpg" alt="" />
+              <img src="assets/media/gallery/port2.jpg" alt="" />
+              <img src="assets/media/gallery/port3.jpg" alt="" />
+            </div>
+            <button
+              class="carousel-btn left"
+              onclick="moveSlide('portCarousel', -1)"
+            >
+              ❮
+            </button>
+            <button
+              class="carousel-btn right"
+              onclick="moveSlide('portCarousel', 1)"
+            >
+              ❯
+            </button>
+          </div>
+        </div>
+
+        <!-- ANNOUNCEMENTS -->
+        <div class="gallery-col">
+          <h2 class="gallery-title">Announcements</h2>
+          <div class="carousel" id="announceCarousel">
+            <div class="carousel-track">
+              <img src="assets/media/gallery/announce1.jpg" />
+              <img src="assets/media/gallery/announce2.jpg" />
+              <img src="assets/media/gallery/announce3.jpg" />
+            </div>
+            <button
+              class="carousel-btn left"
+              onclick="moveSlide('announceCarousel', -1)"
+            >
+              ❮
+            </button>
+            <button
+              class="carousel-btn right"
+              onclick="moveSlide('announceCarousel', 1)"
+            >
+              ❯
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Online Services -->
+      <section class="section section--panel">
+        <div class="container">
+          <h2 class="section__title">Online Services</h2>
+          <div class="cards">
+            <a href="https://my.kulhudhuffushiport.mv/" class="card">
+              <span class="card__icon">🌐</span>
+              <span class="card__title">Customer Portal</span>
+            </a>
+
+            <a href="notices.html" class="card">
+              <span class="card__icon">📋</span>
+              <span class="card__title">Port Notices</span>
+            </a>
+
+            <a href="contact.html" class="card">
+              <span class="card__icon">☎️</span>
+              <span class="card__title">Contact KPL</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- About teaser -->
+      <section class="section">
+        <div class="container">
+          <h2>About KPL</h2>
+          <p>
+            KPL is committed to providing safe, efficient, and reliable port
+            services through innovation, sustainable best practices, and strong
+            stakeholder engagement for the people of Maldives.
+          </p>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="container footer__inner">
+          <p>© 2025 Kulhudhuffushi Port Limited. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+
+    <script src="assets/js/main.js" defer></script>
+    <!-- IMAGE POPUP (Lightbox) -->
+    <div id="imgPopup" class="img-popup" onclick="closePopup()">
+      <img id="popupImg" />
+    </div>
+  </body>
 </html>

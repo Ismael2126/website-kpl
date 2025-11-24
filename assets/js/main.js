@@ -76,12 +76,16 @@ function loadNoticesFromSheet() {
         const message = row.c[2]?.v || "";
 
         box.innerHTML += `
-          <div class="notice-card">
-            <h3 class="notice-title">📢 ${title}</h3>
-            ${date ? `<p class="notice-date">${date}</p>` : ""}
-            <p>${message}</p>
-          </div>
-        `;
+  <div class="notice-card-box" 
+       onclick="openNoticePopup('${title.replace(/'/g, "\\'")}', '${date}', \`${message}\`)">
+    
+    <h3 class="notice-card-title">📢 ${title}</h3>
+    ${date ? `<p class="notice-card-date">${date}</p>` : ""}
+    <p class="notice-card-text">${message}</p>
+
+  </div>
+`;
+
       });
     })
     .catch(err => console.error("Notices error:", err));
@@ -241,3 +245,14 @@ document.addEventListener("click", function(e) {
     }
 });
 
+function openNoticePopup(title, date, message) {
+  document.getElementById("popupTitle").innerText = title;
+  document.getElementById("popupDate").innerText = date;
+  document.getElementById("popupMessage").innerText = message;
+
+  document.getElementById("noticePopup").style.display = "flex";
+}
+
+function closeNoticePopup() {
+  document.getElementById("noticePopup").style.display = "none";
+}
