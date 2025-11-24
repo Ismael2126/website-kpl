@@ -529,3 +529,9 @@ body {
   pointer-events: none;
   appearance: none;
 }
+/* Make dark mode toggle clickable with pointer cursor */
+.theme-toggle,
+#theme-toggle,
+.theme-toggle * {
+  cursor: pointer !important;
+}
