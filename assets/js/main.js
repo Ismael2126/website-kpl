@@ -256,3 +256,33 @@ function openNoticePopup(title, date, message) {
 function closeNoticePopup() {
   document.getElementById("noticePopup").style.display = "none";
 }
+/* STAT ANIMATION */
+function animateStats() {
+  const stats = document.querySelectorAll(".stat-number");
+
+  stats.forEach(stat => {
+    let target = +stat.getAttribute("data-count");
+    let count = 0;
+    let speed = target / 150;
+
+    let update = setInterval(() => {
+      count += speed;
+      if (count >= target) {
+        stat.textContent = target.toLocaleString();
+        clearInterval(update);
+      } else {
+        stat.textContent = Math.floor(count).toLocaleString();
+      }
+    }, 20);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", animateStats);
+function openStatsPopup(src) {
+  document.getElementById("popupStatsImg").src = src;
+  document.getElementById("statsPopup").style.display = "flex";
+}
+
+function closeStatsPopup() {
+  document.getElementById("statsPopup").style.display = "none";
+}
