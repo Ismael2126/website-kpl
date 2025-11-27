@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initNotices();
   initVesselMovements();
   animateStats();
+  applyGlobalLogo();
+  initWeeklyPopupClose();
 });
 
 /* ===============================
@@ -13,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
 function initTheme() {
   const toggle = document.getElementById("theme-toggle");
   const body = document.body;
+
+  if (!toggle) return;
 
   const saved = localStorage.getItem("kpl-theme");
   if (saved === "light") {
@@ -40,6 +44,7 @@ function initTheme() {
 function initHeroMedia() {
   const heroBox = document.getElementById("hero-media");
   if (!heroBox) return;
+
   heroBox.innerHTML = `
       <video class="hero__video" src="assets/media/KPL_DRONE.mp4"
       autoplay muted loop playsinline></video>
@@ -79,7 +84,7 @@ function loadNoticesFromSheet() {
         box.innerHTML += `
 <div class="notice-card-box" 
      onclick="openNoticePopup('${title.replace(/'/g, "\\'")}', '${date}', \`${message}\`)">
-  
+
   <h3 class="notice-card-title">📢 ${title}</h3>
   ${date ? `<p class="notice-card-date">${date}</p>` : ""}
   <p class="notice-card-text">${message}</p>
@@ -194,6 +199,8 @@ function loadVesselMovements() {
    =============================== */
 function moveSlide(id, direction) {
   const el = document.getElementById(id);
+  if (!el) return;
+
   const track = el.querySelector(".carousel-track");
   const images = track.querySelectorAll("img");
   const total = images.length;
@@ -215,108 +222,85 @@ setInterval(() => moveSlide("portCarousel", 1), 10000);
 setInterval(() => moveSlide("announceCarousel", 1), 10000);
 
 /* ===============================
-   6) IMAGE POPUP + ARROWS WORKING
+   6) IMAGE POPUP + ARROWS
    =============================== */
-
 
 let currentIndex = 0;
 let currentGallery = [];
 
-const popup = document.getElementById("imgPopup");
+const popupImgBox = document.getElementById("imgPopup");
 const popupImg = document.getElementById("popupImg");
 
-// Only run popup system if popup exists on this page
-if (popup) {
+function openImage(index, gallery) {
+  if (!popupImgBox) return;
 
-    // Open popup
-    function openImage(index, gallery) {
-      currentIndex = index;
-      currentGallery = gallery;
-      popupImg.src = gallery[index];
-      popup.style.display = "flex";
-    }
+  currentIndex = index;
+  currentGallery = gallery;
+  popupImg.src = gallery[index];
+  popupImgBox.style.display = "flex";
+}
 
-    // Next
-    function nextImg(e) {
-      e.stopPropagation();
-      currentIndex = (currentIndex + 1) % currentGallery.length;
-      popupImg.src = currentGallery[currentIndex];
-    }
+function nextImg(e) {
+  e.stopPropagation();
+  currentIndex = (currentIndex + 1) % currentGallery.length;
+  popupImg.src = currentGallery[currentIndex];
+}
 
-    // Prev
-    function prevImg(e) {
-      e.stopPropagation();
-      currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-      popupImg.src = currentGallery[currentIndex];
-    }
+function prevImg(e) {
+  e.stopPropagation();
+  currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+  popupImg.src = currentGallery[currentIndex];
+}
 
-    // Close popup
-    function closePopup() {
-      popup.style.display = "none";
-    }
+function closePopup() {
+  if (popupImgBox) popupImgBox.style.display = "none";
+}
 
-    // Close when clicking outside
-    popup.addEventListener("click", function (e) {
-      if (e.target === popup) closePopup();
-    });
-
-} // END popup check
-
-/* ===============================
-   GALLERY ARRAYS
-   =============================== */
-const sportsGallery = [
-  "assets/media/gallery/sports1.jpg",
-  "assets/media/gallery/sports2.jpg",
-  "assets/media/gallery/sports (4).jpg",
-  "assets/media/gallery/sports (5).jpg",
-  "assets/media/gallery/sports (6).jpg",
-  "assets/media/gallery/sports (7).jpg"
-];
-
-const portGallery = [
-  "assets/media/gallery/port1.jpg",
-  "assets/media/gallery/port2.jpg",
-  "assets/media/gallery/port3.jpg"
-];
-
-const announceGallery = [
-  "assets/media/gallery/announce1.jpg",
-  "assets/media/gallery/announce2.jpg",
-  "assets/media/gallery/announce3.jpg"
-];
+if (popupImgBox) {
+  popupImgBox.addEventListener("click", function (e) {
+    if (e.target === popupImgBox) closePopup();
+  });
+}
 
 /* ===============================
    7) NOTICE POPUP
    =============================== */
 function openNoticePopup(title, date, message) {
-  document.getElementById("popupTitle").innerText = title;
-  document.getElementById("popupDate").innerText = date;
-  document.getElementById("popupMessage").innerText = message;
+  const pop = document.getElementById("noticePopup");
+  const t = document.getElementById("popupTitle");
+  const d = document.getElementById("popupDate");
+  const m = document.getElementById("popupMessage");
 
-  document.getElementById("noticePopup").style.display = "flex";
+  if (!pop) return;
+
+  t.innerText = title;
+  d.innerText = date;
+  m.innerText = message;
+
+  pop.style.display = "flex";
 }
 
 function closeNoticePopup() {
-  document.getElementById("noticePopup").style.display = "none";
+  const pop = document.getElementById("noticePopup");
+  if (pop) pop.style.display = "none";
 }
 
-// Close notice popup when clicking anywhere outside the popup box
-document.getElementById("noticePopup").addEventListener("click", function (e) {
-  const box = document.querySelector(".notice-popup-box");
-
-  // If click is outside the box, close the popup
-  if (!box.contains(e.target)) {
+const noticePopup = document.getElementById("noticePopup");
+if (noticePopup) {
+  noticePopup.addEventListener("click", function (e) {
+    const box = document.querySelector(".notice-popup-box");
+    if (box && !box.contains(e.target)) {
       closeNoticePopup();
-  }
-});
-
+    }
+  });
+}
 
 /* ===============================
    8) STATS ANIMATION
    =============================== */
 function animateStats() {
   const stats = document.querySelectorAll(".stat-number");
+  if (!stats) return;
 
   stats.forEach(stat => {
     let target = +stat.getAttribute("data-count");
@@ -336,28 +320,45 @@ function animateStats() {
 }
 
 /* ===============================
-   9) WEEKLY STATS POPUP (FIXED)
+   9) WEEKLY STATS POPUP (FULLY FIXED)
    =============================== */
 function openStatsPopup(src) {
-  const popup = document.getElementById("statsPopup");
+  const pop = document.getElementById("statsPopup");
   const img = document.getElementById("popupStatsImg");
 
+  if (!pop) return;
+
   img.src = src;
-  popup.style.display = "flex";
+  pop.style.display = "flex";
 }
 
 function closeStatsPopup() {
-  document.getElementById("statsPopup").style.display = "none";
+  const pop = document.getElementById("statsPopup");
+  if (pop) pop.style.display = "none";
 }
 
-// Close when clicking outside the image
-document.getElementById("statsPopup").addEventListener("click", function (e) {
-  const img = document.getElementById("popupStatsImg");
+function initWeeklyPopupClose() {
+  const statsPopup = document.getElementById("statsPopup");
+  if (!statsPopup) return;
 
-  // If click is ON the image → do nothing
-  if (img.contains(e.target)) return;
+  statsPopup.addEventListener("click", function (e) {
+    const img = document.getElementById("popupStatsImg");
 
-  // Otherwise close
-  closeStatsPopup();
-});
+    // If click is on the image, do NOT close
+    if (img.contains(e.target)) return;
 
+    // Otherwise close popup
+    closeStatsPopup();
+  });
+}
+
+/* ===============================
+   10) GLOBAL LOGO SETTER (ONE PLACE)
+   =============================== */
+function applyGlobalLogo() {
+  const logo = document.getElementById("kpl-logo");
+  if (logo) {
+    logo.src = "assets/images/KPL_Logo.png"; // EXACT name
+    console.log("Logo applied:", logo.src);
+  }
+}
