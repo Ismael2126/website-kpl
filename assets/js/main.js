@@ -4,10 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroMedia();
   initNotices();
   initVesselMovements();
+  animateStats();
 });
 
 /* ===============================
-   1) Theme
+   1) THEME
    =============================== */
 function initTheme() {
   const toggle = document.getElementById("theme-toggle");
@@ -34,19 +35,19 @@ function initTheme() {
 }
 
 /* ===============================
-   2) Hero
+   2) HERO VIDEO
    =============================== */
 function initHeroMedia() {
   const heroBox = document.getElementById("hero-media");
   if (!heroBox) return;
   heroBox.innerHTML = `
-      <video class="hero__video" src="assets/media/Mood.mp4"
+      <video class="hero__video" src="assets/media/KPL_DRONE.mp4"
       autoplay muted loop playsinline></video>
   `;
 }
 
 /* ===============================
-   3) Notices
+   3) NOTICES
    =============================== */
 function initNotices() {
   const c = document.getElementById("notice-list");
@@ -76,23 +77,21 @@ function loadNoticesFromSheet() {
         const message = row.c[2]?.v || "";
 
         box.innerHTML += `
-  <div class="notice-card-box" 
-       onclick="openNoticePopup('${title.replace(/'/g, "\\'")}', '${date}', \`${message}\`)">
-    
-    <h3 class="notice-card-title">📢 ${title}</h3>
-    ${date ? `<p class="notice-card-date">${date}</p>` : ""}
-    <p class="notice-card-text">${message}</p>
+<div class="notice-card-box" 
+     onclick="openNoticePopup('${title.replace(/'/g, "\\'")}', '${date}', \`${message}\`)">
+  
+  <h3 class="notice-card-title">📢 ${title}</h3>
+  ${date ? `<p class="notice-card-date">${date}</p>` : ""}
+  <p class="notice-card-text">${message}</p>
 
-  </div>
-`;
-
+</div>`;
       });
     })
     .catch(err => console.error("Notices error:", err));
 }
 
 /* ===============================
-   4) Vessel Movements
+   4) VESSEL MOVEMENTS API
    =============================== */
 function initVesselMovements() {
   if (!document.getElementById("estimatedArrivals")) return;
@@ -111,13 +110,11 @@ function createVMTable(data, columns) {
     columns.forEach(c => {
       let value = item[c.key];
 
-      // nested objects (arrival, departure, berth etc)
       if (c.key.includes(".")) {
-        const keys = c.key.split(".");
+        const parts = c.key.split(".");
         value = item;
-        keys.forEach(k => value = value ? value[k] : "-");
+        parts.forEach(k => value = value ? value[k] : "-");
       }
-
       html += `<td>${value ?? "-"}</td>`;
     });
     html += `</tr>`;
@@ -131,13 +128,9 @@ function loadVesselMovements() {
   const apiURL =
     "https://api.allorigins.win/raw?url=https://my.kulhudhuffushiport.mv/api/vessel_noticeboard";
 
-  console.log("Fetching vessel API...");
-
   fetch(apiURL)
     .then(res => res.json())
     .then(json => {
-      console.log("✔ API Response:", json);
-
       document.querySelector("#estimatedArrivals").innerHTML =
         "🟡 Estimated Arrivals" +
         createVMTable(json.eta, [
@@ -192,59 +185,110 @@ function loadVesselMovements() {
           { label: "Last Port", key: "sourceport_name" },
           { label: "Berth", key: "pilotage.servicetoberth.name" }
         ]);
-
     })
-    .catch(err => {
-      console.error("❌ Vessel API Error:", err);
-      alert("API unreachable. Please check connection or try again.");
-    });
+    .catch(err => console.error("Vessel API Error:", err));
 }
+
 /* ===============================
-   IMAGE CAROUSEL (3 Independent Sliders)
+   5) CAROUSELS
    =============================== */
-
 function moveSlide(id, direction) {
-    const el = document.getElementById(id);
-    const track = el.querySelector(".carousel-track");
-    const images = track.querySelectorAll("img");
-    const total = images.length;
+  const el = document.getElementById(id);
+  const track = el.querySelector(".carousel-track");
+  const images = track.querySelectorAll("img");
+  const total = images.length;
 
-    let index = Number(el.getAttribute("data-index")) || 0;
-    index += direction;
+  let index = Number(el.getAttribute("data-index")) || 0;
+  index += direction;
 
-    if (index < 0) index = total - 1;
-    if (index >= total) index = 0;
+  if (index < 0) index = total - 1;
+  if (index >= total) index = 0;
 
-    el.setAttribute("data-index", index);
+  el.setAttribute("data-index", index);
 
-    // Get width of ONE image
-    const imgWidth = images[0].clientWidth;
-
-    // Move based on pixel value (correct way)
-    track.style.transform = `translateX(-${index * imgWidth}px)`;
+  const imgWidth = images[0].clientWidth;
+  track.style.transform = `translateX(-${index * imgWidth}px)`;
 }
 
-/* Independent auto-scroll */
 setInterval(() => moveSlide("sportsCarousel", 1), 8000);
 setInterval(() => moveSlide("portCarousel", 1), 10000);
 setInterval(() => moveSlide("announceCarousel", 1), 10000);
 
-/* POPUP IMAGE VIEWER */
-function openPopup(src) {
-    document.getElementById("popupImg").src = src;
-    document.getElementById("imgPopup").style.display = "flex";
-}
+/* ===============================
+   6) IMAGE POPUP + ARROWS WORKING
+   =============================== */
 
-function closePopup() {
-    document.getElementById("imgPopup").style.display = "none";
-}
 
-document.addEventListener("click", function(e) {
-    if (e.target.tagName === "IMG" && e.target.closest(".carousel-track")) {
-        openPopup(e.target.src);
+let currentIndex = 0;
+let currentGallery = [];
+
+const popup = document.getElementById("imgPopup");
+const popupImg = document.getElementById("popupImg");
+
+// Only run popup system if popup exists on this page
+if (popup) {
+
+    // Open popup
+    function openImage(index, gallery) {
+      currentIndex = index;
+      currentGallery = gallery;
+      popupImg.src = gallery[index];
+      popup.style.display = "flex";
     }
-});
 
+    // Next
+    function nextImg(e) {
+      e.stopPropagation();
+      currentIndex = (currentIndex + 1) % currentGallery.length;
+      popupImg.src = currentGallery[currentIndex];
+    }
+
+    // Prev
+    function prevImg(e) {
+      e.stopPropagation();
+      currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+      popupImg.src = currentGallery[currentIndex];
+    }
+
+    // Close popup
+    function closePopup() {
+      popup.style.display = "none";
+    }
+
+    // Close when clicking outside
+    popup.addEventListener("click", function (e) {
+      if (e.target === popup) closePopup();
+    });
+
+} // END popup check
+
+/* ===============================
+   GALLERY ARRAYS
+   =============================== */
+const sportsGallery = [
+  "assets/media/gallery/sports1.jpg",
+  "assets/media/gallery/sports2.jpg",
+  "assets/media/gallery/sports (4).jpg",
+  "assets/media/gallery/sports (5).jpg",
+  "assets/media/gallery/sports (6).jpg",
+  "assets/media/gallery/sports (7).jpg"
+];
+
+const portGallery = [
+  "assets/media/gallery/port1.jpg",
+  "assets/media/gallery/port2.jpg",
+  "assets/media/gallery/port3.jpg"
+];
+
+const announceGallery = [
+  "assets/media/gallery/announce1.jpg",
+  "assets/media/gallery/announce2.jpg",
+  "assets/media/gallery/announce3.jpg"
+];
+
+/* ===============================
+   7) NOTICE POPUP
+   =============================== */
 function openNoticePopup(title, date, message) {
   document.getElementById("popupTitle").innerText = title;
   document.getElementById("popupDate").innerText = date;
@@ -256,7 +300,21 @@ function openNoticePopup(title, date, message) {
 function closeNoticePopup() {
   document.getElementById("noticePopup").style.display = "none";
 }
-/* STAT ANIMATION */
+
+// Close notice popup when clicking anywhere outside the popup box
+document.getElementById("noticePopup").addEventListener("click", function (e) {
+  const box = document.querySelector(".notice-popup-box");
+
+  // If click is outside the box, close the popup
+  if (!box.contains(e.target)) {
+      closeNoticePopup();
+  }
+});
+
+
+/* ===============================
+   8) STATS ANIMATION
+   =============================== */
 function animateStats() {
   const stats = document.querySelectorAll(".stat-number");
 
@@ -277,12 +335,29 @@ function animateStats() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", animateStats);
+/* ===============================
+   9) WEEKLY STATS POPUP (FIXED)
+   =============================== */
 function openStatsPopup(src) {
-  document.getElementById("popupStatsImg").src = src;
-  document.getElementById("statsPopup").style.display = "flex";
+  const popup = document.getElementById("statsPopup");
+  const img = document.getElementById("popupStatsImg");
+
+  img.src = src;
+  popup.style.display = "flex";
 }
 
 function closeStatsPopup() {
   document.getElementById("statsPopup").style.display = "none";
 }
+
+// Close when clicking outside the image
+document.getElementById("statsPopup").addEventListener("click", function (e) {
+  const img = document.getElementById("popupStatsImg");
+
+  // If click is ON the image → do nothing
+  if (img.contains(e.target)) return;
+
+  // Otherwise close
+  closeStatsPopup();
+});
+

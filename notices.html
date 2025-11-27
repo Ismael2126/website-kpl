@@ -79,15 +79,16 @@
 
   </div>
 <!-- NOTICE POPUP -->
-  <div id="noticePopup" class="notice-popup">
-    <div class="notice-popup-content">
-      <span class="notice-popup-close" onclick="closeNoticePopup()">×</span>
+ <div id="noticePopup">
+  <div class="notice-popup-box">
+    <span class="notice-close-btn" onclick="closeNoticePopup()">×</span>
 
-      <h2 id="popupTitle"></h2>
-      <p id="popupDate" class="popup-date"></p>
-      <p id="popupMessage" class="popup-message"></p>
+    <h3 class="notice-popup-title" id="popupTitle"></h3>
+    <p class="notice-popup-date" id="popupDate"></p>
+    <p class="notice-popup-message" id="popupMessage"></p>
+  </div>
+</div>
 
-    </div>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -80,12 +80,12 @@
           <h2 class="gallery-title">Sports</h2>
           <div class="carousel" id="sportsCarousel">
             <div class="carousel-track">
-              <img src="assets/media/gallery/sports1.jpg" />
-              <img src="assets/media/gallery/sports2.jpg" />
-              <img src="assets/media/gallery/sports (4).jpg" />
-              <img src="assets/media/gallery/sports (5).jpg" />
-              <img src="assets/media/gallery/sports (6).jpg" />
-              <img src="assets/media/gallery/sports (7).jpg" />
+              <img src="assets/media/gallery/sports1.jpg"    onclick="openImage(0, sportsGallery)" />
+              <img src="assets/media/gallery/sports2.jpg"    onclick="openImage(1, sportsGallery)" />
+              <img src="assets/media/gallery/sports (4).jpg" onclick="openImage(2, sportsGallery)"/>
+              <img src="assets/media/gallery/sports (5).jpg" onclick="openImage(3, sportsGallery)"/>
+              <img src="assets/media/gallery/sports (6).jpg" onclick="openImage(4, sportsGallery)"/>
+              <img src="assets/media/gallery/sports (7).jpg" onclick="openImage(5, sportsGallery)"/>
             </div>
             <button
               class="carousel-btn left"
@@ -107,9 +107,9 @@
           <h2 class="gallery-title">Port Related</h2>
           <div class="carousel" id="portCarousel">
             <div class="carousel-track">
-              <img src="assets/media/gallery/port1.jpg" alt="" />
-              <img src="assets/media/gallery/port2.jpg" alt="" />
-              <img src="assets/media/gallery/port3.jpg" alt="" />
+              <img src="assets/media/gallery/port1.jpg" onclick="openImage(0, portGallery)"/>
+              <img src="assets/media/gallery/port2.jpg" onclick="openImage(1, portGallery)" />
+              <img src="assets/media/gallery/port3.jpg" onclick="openImage(2, portGallery)" />
             </div>
             <button
               class="carousel-btn left"
@@ -131,9 +131,9 @@
           <h2 class="gallery-title">Announcements</h2>
           <div class="carousel" id="announceCarousel">
             <div class="carousel-track">
-              <img src="assets/media/gallery/announce1.jpg" />
-              <img src="assets/media/gallery/announce2.jpg" />
-              <img src="assets/media/gallery/announce3.jpg" />
+              <img src="assets/media/gallery/announce1.jpg" onclick="openImage(0, announceGallery)"/>
+              <img src="assets/media/gallery/announce2.jpg" onclick="openImage(1, announceGallery)"/>
+              <img src="assets/media/gallery/announce3.jpg" onclick="openImage(2, announceGallery)"/>
             </div>
             <button
               class="carousel-btn left"
@@ -200,8 +200,22 @@
 
     <script src="assets/js/main.js" defer></script>
     <!-- IMAGE POPUP (Lightbox) -->
-    <div id="imgPopup" class="img-popup" onclick="closePopup()">
-      <img id="popupImg" />
-    </div>
+    <!-- IMAGE POPUP (LIGHTBOX) -->
+<div id="imgPopup" class="img-popup">
+
+  <!-- Close Button -->
+  <span class="img-close" onclick="closePopup()">×</span>
+
+  <!-- Left Arrow -->
+  <span class="img-nav left" onclick="prevImg(event)">❮</span>
+
+  <!-- Image -->
+  <img id="popupImg" class="popup-big-img" />
+
+  <!-- Right Arrow -->
+  <span class="img-nav right" onclick="nextImg(event)">❯</span>
+
+</div>
+
   </body>
 </html>
