@@ -31,7 +31,7 @@
 
           <label for="theme-toggle" class="theme-toggle">
             <span class="theme-toggle__icon">🌙</span>
-            <span class="theme-toggle__text">Dark</span>
+            <span class="theme-toggle__text">Dark.</span>
           </label>
         </div>
       </header>
@@ -80,12 +80,30 @@
           <h2 class="gallery-title">Sports</h2>
           <div class="carousel" id="sportsCarousel">
             <div class="carousel-track">
-              <img src="assets/media/gallery/sports1.jpg"    onclick="openImage(0, sportsGallery)" />
-              <img src="assets/media/gallery/sports2.jpg"    onclick="openImage(1, sportsGallery)" />
-              <img src="assets/media/gallery/sports (4).jpg" onclick="openImage(2, sportsGallery)"/>
-              <img src="assets/media/gallery/sports (5).jpg" onclick="openImage(3, sportsGallery)"/>
-              <img src="assets/media/gallery/sports (6).jpg" onclick="openImage(4, sportsGallery)"/>
-              <img src="assets/media/gallery/sports (7).jpg" onclick="openImage(5, sportsGallery)"/>
+              <img
+                src="assets/media/gallery/sports1.jpg"
+                onclick="openImage(0, sportsGallery)"
+              />
+              <img
+                src="assets/media/gallery/sports2.jpg"
+                onclick="openImage(1, sportsGallery)"
+              />
+              <img
+                src="assets/media/gallery/sports (4).jpg"
+                onclick="openImage(2, sportsGallery)"
+              />
+              <img
+                src="assets/media/gallery/sports (5).jpg"
+                onclick="openImage(3, sportsGallery)"
+              />
+              <img
+                src="assets/media/gallery/sports (6).jpg"
+                onclick="openImage(4, sportsGallery)"
+              />
+              <img
+                src="assets/media/gallery/sports (7).jpg"
+                onclick="openImage(5, sportsGallery)"
+              />
             </div>
             <button
               class="carousel-btn left"
@@ -107,9 +125,18 @@
           <h2 class="gallery-title">Port Related</h2>
           <div class="carousel" id="portCarousel">
             <div class="carousel-track">
-              <img src="assets/media/gallery/port1.jpg" onclick="openImage(0, portGallery)"/>
-              <img src="assets/media/gallery/port2.jpg" onclick="openImage(1, portGallery)" />
-              <img src="assets/media/gallery/port3.jpg" onclick="openImage(2, portGallery)" />
+              <img
+                src="assets/media/gallery/port1.jpg"
+                onclick="openImage(0, portGallery)"
+              />
+              <img
+                src="assets/media/gallery/port2.jpg"
+                onclick="openImage(1, portGallery)"
+              />
+              <img
+                src="assets/media/gallery/port3.jpg"
+                onclick="openImage(2, portGallery)"
+              />
             </div>
             <button
               class="carousel-btn left"
@@ -131,9 +158,18 @@
           <h2 class="gallery-title">Announcements</h2>
           <div class="carousel" id="announceCarousel">
             <div class="carousel-track">
-              <img src="assets/media/gallery/announce1.jpg" onclick="openImage(0, announceGallery)"/>
-              <img src="assets/media/gallery/announce2.jpg" onclick="openImage(1, announceGallery)"/>
-              <img src="assets/media/gallery/announce3.jpg" onclick="openImage(2, announceGallery)"/>
+              <img
+                src="assets/media/gallery/announce1.jpg"
+                onclick="openImage(0, announceGallery)"
+              />
+              <img
+                src="assets/media/gallery/announce2.jpg"
+                onclick="openImage(1, announceGallery)"
+              />
+              <img
+                src="assets/media/gallery/announce3.jpg"
+                onclick="openImage(2, announceGallery)"
+              />
             </div>
             <button
               class="carousel-btn left"
@@ -154,16 +190,17 @@
       <!-- Online Services -->
       <section class="section section--panel">
         <div class="container">
-  <h2 class="section__title">Online Services</h2>
-  <div class="cards">
-
-    <a href="https://my.kulhudhuffushiport.mv/" 
-       class="card" 
-       target="_blank" 
-       rel="noopener">
-      <span class="card__icon">🌐</span>
-      <span class="card__title">Customer Portal</span>
-    </a>
+          <h2 class="section__title">Online Services</h2>
+          <div class="cards">
+            <a
+              href="https://my.kulhudhuffushiport.mv/"
+              class="card"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="card__icon">🌐</span>
+              <span class="card__title">Customer Portal</span>
+            </a>
 
             <a href="notices.html" class="card">
               <span class="card__icon">📋</span>
@@ -201,21 +238,18 @@
     <script src="assets/js/main.js" defer></script>
     <!-- IMAGE POPUP (Lightbox) -->
     <!-- IMAGE POPUP (LIGHTBOX) -->
-<div id="imgPopup" class="img-popup">
+    <div id="imgPopup" class="img-popup">
+      <!-- Close Button -->
+      <span class="img-close" onclick="closePopup()">×</span>
 
-  <!-- Close Button -->
-  <span class="img-close" onclick="closePopup()">×</span>
+      <!-- Left Arrow -->
+      <span class="img-nav left" onclick="prevImg(event)">❮</span>
 
-  <!-- Left Arrow -->
-  <span class="img-nav left" onclick="prevImg(event)">❮</span>
+      <!-- Image -->
+      <img id="popupImg" class="popup-big-img" />
 
-  <!-- Image -->
-  <img id="popupImg" class="popup-big-img" />
-
-  <!-- Right Arrow -->
-  <span class="img-nav right" onclick="nextImg(event)">❯</span>
-
-</div>
-
+      <!-- Right Arrow -->
+      <span class="img-nav right" onclick="nextImg(event)">❯</span>
+    </div>
   </body>
 </html>
