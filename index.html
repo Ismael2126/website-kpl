@@ -1,251 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Kulhudhuffushi Port Limited (KPL) – Home..</title>
+    <title>Kulhudhuffushi Port Limited (KPL) – Home</title>
     <link rel="icon" type="image/png" href="assets/images/KPL Logo .ico" />
     <link rel="stylesheet" href="assets/css/styles.css" />
-  </head>
-  <body class="theme-dark">
-    <!-- Dark mode toggle control -->
-    <input
-      type="checkbox"
-      id="theme-toggle"
-      class="theme-toggle-input"
-      aria-label="Toggle dark mode"
-    />
+</head>
 
-    <div class="site">
- 
-      <!-- Navigation -->
+<body class="theme-dark">
+
+<div class="site">
+
+    <!-- NAVIGATION -->
     <nav class="nav">
-  <div class="container nav__inner">
+        <div class="container nav__inner">
 
-    <!-- Left Side Logo -->
-    <a href="index.html" class="nav-logo">
-      <img src="assets/images/KPL_Logo.png" id="kpl-logo" alt="KPL Logo">
-      <span>Kulhudhuffushi Port Limited</span>
-    </a>
+            <!-- Left Side Logo -->
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/KPL_Logo.png" id="kpl-logo" alt="KPL Logo">
+                <span>Kulhudhuffushi Port Limited</span>
+            </a>
 
-    <!-- Center Menu -->
-    <ul class="nav__list">
-      <li><a href="index.html" class="nav__link nav__link--active">Home</a></li>
-      <li><a href="about.html" class="nav__link">About</a></li>
-      <li><a href="services.html" class="nav__link">Services</a></li>
-      <li><a href="notices.html" class="nav__link">Notices</a></li>
-      <li><a href="vessel.html" class="nav__link">Vessel Movements</a></li>
-      <li><a href="contact.html" class="nav__link">Contact</a></li>
-    </ul>
+            <!-- Center Menu -->
+            <ul class="nav__list">
+                <li><a href="index.html" class="nav__link nav__link--active">Home</a></li>
+                <li><a href="about.html" class="nav__link">About</a></li>
+                <li><a href="services.html" class="nav__link">Services</a></li>
+                <li><a href="notices.html" class="nav__link">Notices</a></li>
+                <li><a href="vessel.html" class="nav__link">Vessel Movements</a></li>
+                <li><a href="contact.html" class="nav__link">Contact</a></li>
+            </ul>
 
-    <!-- Right Side Dark Mode Button -->
-    <label for="theme-toggle" class="theme-toggle nav-darkmode">
-      🌙
-    </label>
+            <!-- Right Side Dark Mode Button -->
+            <label for="theme-toggle" class="theme-toggle nav-darkmode">🌙</label>
 
-    <input type="checkbox" id="theme-toggle" class="theme-toggle-input">
-  </div>
-</nav>
+            <!-- THIS IS THE ONLY DARK MODE INPUT -->
+            <input type="checkbox" id="theme-toggle" class="theme-toggle-input">
 
-
-
-
-      <!-- HERO VIDEO like MPL -->
-      <section class="hero">
-        <div class="hero__video-wrapper">
-          <!-- AUTO MEDIA BOX (JS will place image or video here) -->
-          <div id="hero-media"></div>
-
-          <div class="hero__overlay"></div>
-
-          <div class="hero__content">
-            <div class="container">
-              <h1>Welcome To Kulhudhuffushi Port Limited</h1>
-              <p class="hero__subtitle">
-                Your world-class port in the Indian Ocean, bridging the East and
-                West.
-              </p>
-            </div>
-          </div>
         </div>
-      </section>
+    </nav>
 
-      <section class="three-gallery">
+
+
+    <!-- HERO VIDEO -->
+    <section class="hero">
+        <div class="hero__video-wrapper">
+
+            <!-- JS will inject the video here -->
+            <div id="hero-media"></div>
+            <div class="hero__overlay"></div>
+
+            <div class="hero__content">
+                <div class="container">
+                    <h1>Welcome To Kulhudhuffushi Port Limited</h1>
+                    <p class="hero__subtitle">
+                        Your world-class port in the Indian Ocean, bridging the East and West.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 3 GALLERIES -->
+    <section class="three-gallery">
+
         <!-- SPORTS -->
         <div class="gallery-col">
-          <h2 class="gallery-title">Sports</h2>
-          <div class="carousel" id="sportsCarousel">
-            <div class="carousel-track">
-              <img
-                src="assets/media/gallery/sports1.jpg"
-                onclick="openImage(0, sportsGallery)"
-              />
-              <img
-                src="assets/media/gallery/sports2.jpg"
-                onclick="openImage(1, sportsGallery)"
-              />
-              <img
-                src="assets/media/gallery/sports (4).jpg"
-                onclick="openImage(2, sportsGallery)"
-              />
-              <img
-                src="assets/media/gallery/sports (5).jpg"
-                onclick="openImage(3, sportsGallery)"
-              />
-              <img
-                src="assets/media/gallery/sports (6).jpg"
-                onclick="openImage(4, sportsGallery)"
-              />
-              <img
-                src="assets/media/gallery/sports (7).jpg"
-                onclick="openImage(5, sportsGallery)"
-              />
+            <h2 class="gallery-title">Sports</h2>
+            <div class="carousel" id="sportsCarousel">
+                <div class="carousel-track">
+                    <img src="assets/media/gallery/sports1.jpg" onclick="openImage(0, sportsGallery)" />
+                    <img src="assets/media/gallery/sports2.jpg" onclick="openImage(1, sportsGallery)" />
+                    <img src="assets/media/gallery/sports (4).jpg" onclick="openImage(2, sportsGallery)" />
+                    <img src="assets/media/gallery/sports (5).jpg" onclick="openImage(3, sportsGallery)" />
+                    <img src="assets/media/gallery/sports (6).jpg" onclick="openImage(4, sportsGallery)" />
+                    <img src="assets/media/gallery/sports (7).jpg" onclick="openImage(5, sportsGallery)" />
+                </div>
+
+                <button class="carousel-btn left" onclick="moveSlide('sportsCarousel', -1)">❮</button>
+                <button class="carousel-btn right" onclick="moveSlide('sportsCarousel', 1)">❯</button>
             </div>
-            <button
-              class="carousel-btn left"
-              onclick="moveSlide('sportsCarousel', -4)"
-            >
-              ❮
-            </button>
-            <button
-              class="carousel-btn right"
-              onclick="moveSlide('sportsCarousel', 1)"
-            >
-              ❯
-            </button>
-          </div>
         </div>
+
 
         <!-- PORT RELATED -->
         <div class="gallery-col">
-          <h2 class="gallery-title">Port Related</h2>
-          <div class="carousel" id="portCarousel">
-            <div class="carousel-track">
-              <img
-                src="assets/media/gallery/port1.jpg"
-                onclick="openImage(0, portGallery)"
-              />
-              <img
-                src="assets/media/gallery/port2.jpg"
-                onclick="openImage(1, portGallery)"
-              />
-              <img
-                src="assets/media/gallery/port3.jpg"
-                onclick="openImage(2, portGallery)"
-              />
+            <h2 class="gallery-title">Port Related</h2>
+            <div class="carousel" id="portCarousel">
+                <div class="carousel-track">
+                    <img src="assets/media/gallery/port1.jpg" onclick="openImage(0, portGallery)" />
+                    <img src="assets/media/gallery/port2.jpg" onclick="openImage(1, portGallery)" />
+                    <img src="assets/media/gallery/port3.jpg" onclick="openImage(2, portGallery)" />
+                </div>
+
+                <button class="carousel-btn left" onclick="moveSlide('portCarousel', -1)">❮</button>
+                <button class="carousel-btn right" onclick="moveSlide('portCarousel', 1)">❯</button>
             </div>
-            <button
-              class="carousel-btn left"
-              onclick="moveSlide('portCarousel', -1)"
-            >
-              ❮
-            </button>
-            <button
-              class="carousel-btn right"
-              onclick="moveSlide('portCarousel', 1)"
-            >
-              ❯
-            </button>
-          </div>
         </div>
+
 
         <!-- ANNOUNCEMENTS -->
         <div class="gallery-col">
-          <h2 class="gallery-title">Announcements</h2>
-          <div class="carousel" id="announceCarousel">
-            <div class="carousel-track">
-              <img
-                src="assets/media/gallery/announce1.jpg"
-                onclick="openImage(0, announceGallery)"
-              />
-              <img
-                src="assets/media/gallery/announce2.jpg"
-                onclick="openImage(1, announceGallery)"
-              />
-              <img
-                src="assets/media/gallery/announce3.jpg"
-                onclick="openImage(2, announceGallery)"
-              />
+            <h2 class="gallery-title">Announcements</h2>
+            <div class="carousel" id="announceCarousel">
+                <div class="carousel-track">
+                    <img src="assets/media/gallery/announce1.jpg" onclick="openImage(0, announceGallery)" />
+                    <img src="assets/media/gallery/announce2.jpg" onclick="openImage(1, announceGallery)" />
+                    <img src="assets/media/gallery/announce3.jpg" onclick="openImage(2, announceGallery)" />
+                </div>
+
+                <button class="carousel-btn left" onclick="moveSlide('announceCarousel', -1)">❮</button>
+                <button class="carousel-btn right" onclick="moveSlide('announceCarousel', 1)">❯</button>
             </div>
-            <button
-              class="carousel-btn left"
-              onclick="moveSlide('announceCarousel', -1)"
-            >
-              ❮
-            </button>
-            <button
-              class="carousel-btn right"
-              onclick="moveSlide('announceCarousel', 1)"
-            >
-              ❯
-            </button>
-          </div>
         </div>
-      </section>
 
-      <!-- Online Services -->
-      <section class="section section--panel">
+    </section>
+
+
+    <!-- Online Services -->
+    <section class="section section--panel">
         <div class="container">
-          <h2 class="section__title">Online Services</h2>
-          <div class="cards">
-            <a
-              href="https://my.kulhudhuffushiport.mv/"
-              class="card"
-              target="_blank"
-              rel="noopener"
-            >
-              <span class="card__icon">🌐</span>
-              <span class="card__title">Customer Portal</span>
-            </a>
+            <h2 class="section__title">Online Services</h2>
+            <div class="cards">
+                <a href="https://my.kulhudhuffushiport.mv/" class="card" target="_blank">
+                    <span class="card__icon">🌐</span>
+                    <span class="card__title">Customer Portal</span>
+                </a>
 
-            <a href="notices.html" class="card">
-              <span class="card__icon">📋</span>
-              <span class="card__title">Port Notices</span>
-            </a>
+                <a href="notices.html" class="card">
+                    <span class="card__icon">📋</span>
+                    <span class="card__title">Port Notices</span>
+                </a>
 
-            <a href="contact.html" class="card">
-              <span class="card__icon">☎️</span>
-              <span class="card__title">Contact KPL</span>
-            </a>
-          </div>
+                <a href="contact.html" class="card">
+                    <span class="card__icon">☎️</span>
+                    <span class="card__title">Contact KPL</span>
+                </a>
+            </div>
         </div>
-      </section>
+    </section>
 
-      <!-- About teaser -->
-      <section class="section">
+
+    <!-- ABOUT -->
+    <section class="section">
         <div class="container">
-          <h2>About KPL</h2>
-          <p>
-            KPL is committed to providing safe, efficient, and reliable port
-            services through innovation, sustainable best practices, and strong
-            stakeholder engagement for the people of Maldives.
-          </p>
+            <h2>About KPL</h2>
+            <p>
+                KPL is committed to providing safe, efficient, and reliable port
+                services through innovation, sustainable best practices, and strong
+                stakeholder engagement for the people of Maldives.
+            </p>
         </div>
-      </section>
+    </section>
 
-      <!-- Footer -->
-      <footer class="footer">
+
+    <!-- FOOTER -->
+    <footer class="footer">
         <div class="container footer__inner">
-          <p>© 2025 Kulhudhuffushi Port Limited. All rights reserved.</p>
+            <p>© 2025 Kulhudhuffushi Port Limited. All rights reserved.</p>
         </div>
-      </footer>
-    </div>
+    </footer>
 
-    <script src="assets/js/main.js" defer></script>
-    <!-- IMAGE POPUP (Lightbox) -->
-    <!-- IMAGE POPUP (LIGHTBOX) -->
-    <div id="imgPopup" class="img-popup">
-      <!-- Close Button -->
-      <span class="img-close" onclick="closePopup()">×</span>
+</div>
 
-      <!-- Left Arrow -->
-      <span class="img-nav left" onclick="prevImg(event)">❮</span>
 
-      <!-- Image -->
-      <img id="popupImg" class="popup-big-img" />
 
-      <!-- Right Arrow -->
-      <span class="img-nav right" onclick="nextImg(event)">❯</span>
-    </div>
-  </body>
+<!-- ⭐ IMAGE POPUP MUST BE ABOVE THE SCRIPT ⭐ -->
+<div id="imgPopup" class="img-popup">
+    <span class="img-close" onclick="closePopup()">×</span>
+    <span class="img-nav left" onclick="prevImg(event)">❮</span>
+    <img id="popupImg" class="popup-big-img" />
+    <span class="img-nav right" onclick="nextImg(event)">❯</span>
+</div>
+
+
+<!-- MAIN SCRIPT ALWAYS LAST -->
+<script src="assets/js/main.js" defer></script>
+
+</body>
 </html>

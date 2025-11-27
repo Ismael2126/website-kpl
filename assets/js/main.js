@@ -262,6 +262,13 @@ if (popupImgBox) {
   });
 }
 
+/* ⭐ MAKE FUNCTIONS GLOBAL ⭐ */
+window.openImage = openImage;
+window.nextImg = nextImg;
+window.prevImg = prevImg;
+window.closePopup = closePopup;
+
+
 /* ===============================
    7) NOTICE POPUP
    =============================== */
@@ -362,3 +369,27 @@ function applyGlobalLogo() {
     console.log("Logo applied:", logo.src);
   }
 }
+/* ===============================
+   GALLERY IMAGE LISTS (GLOBAL)
+   =============================== */
+
+window.sportsGallery = [
+  "assets/media/gallery/sports1.jpg",
+  "assets/media/gallery/sports2.jpg",
+  "assets/media/gallery/sports (4).jpg",
+  "assets/media/gallery/sports (5).jpg",
+  "assets/media/gallery/sports (6).jpg",
+  "assets/media/gallery/sports (7).jpg"
+];
+
+window.portGallery = [
+  "assets/media/gallery/port1.jpg",
+  "assets/media/gallery/port2.jpg",
+  "assets/media/gallery/port3.jpg"
+];
+
+window.announceGallery = [
+  "assets/media/gallery/announce1.jpg",
+  "assets/media/gallery/announce2.jpg",
+  "assets/media/gallery/announce3.jpg"
+];
